@@ -98,6 +98,33 @@ body::-webkit-scrollbar {
     background-attachment: fixed;
     background-position: 80%;
 }
+.box-main {
+    padding: 20px 0px !important
+}
+@media only screen and (max-width: 600px) {
+    .box-main {
+        padding: 8px 0px !important
+    }
+    #name-main {
+        font-size: 1.5rem !important;
+    }
+    .text-main {
+        font-size: 0.7rem !important;
+    }
+    .quote:after {
+   
+        background-attachment:unset;
+
+    }
+    #home:after{
+
+        background-attachment: unset;
+
+    }
+    #kinhmoi{
+        display: block !important; 
+    }   
+  }
 .mouse-animation {
     padding: 0.25rem 0.625rem;
     height: 2rem;
