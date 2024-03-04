@@ -98,33 +98,8 @@ body::-webkit-scrollbar {
     background-attachment: fixed;
     background-position: 80%;
 }
-.box-main {
-    padding: 20px 0px !important
-}
-@media (width <= 735px) {
-    .box-main {
-        padding: 8px 0px !important
-    }
-    #name-main {
-        font-size: 1.5rem !important;
-    }
-    .text-main {
-        font-size: 0.7rem !important;
-    }
-    .quote:after {
-   
-        background-attachment:unset;
 
-    }
-    #home:after{
 
-        background-attachment: unset;
-
-    }
-    #kinhmoi{
-        display: block !important; 
-    }   
-  }
 .mouse-animation {
     padding: 0.25rem 0.625rem;
     height: 2rem;
@@ -196,3 +171,49 @@ footer {
     margin-top: -0.5rem;
     padding-bottom: 5rem;
 }
+.box-main {
+    padding: 8px 0px !important
+}
+#name-main {
+    font-size: 1.5rem !important;
+}
+.text-main {
+    font-size: 0.7rem !important;
+}
+.quote:after {
+
+    background-attachment:unset;
+
+}
+#home:after{
+
+    background-attachment: unset;
+
+}
+#kinhmoi{
+    display: block !important; 
+} 
+@media only screen and (min-width: 730px) {
+    .box-main {
+        padding: 20px 0px !important
+    }
+    #name-main {
+        font-size: 2.5rem !important;
+    }
+    .text-main {
+        font-size: 1rem !important;
+    }
+    .quote:after {
+   
+        background-attachment:fixed;
+
+    }
+    #home:after{
+
+        background-attachment: fixed;
+
+    }
+    #kinhmoi{
+        display: flex !important; 
+    }   
+  }
