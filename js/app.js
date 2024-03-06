@@ -258,7 +258,7 @@ const progress = (() => {
     let loaded = 0;
 
     const progress = () => {
-        
+
         loaded += 1;
 
         bar.style.width = Math.min((loaded / total) * 100, 100).toString() + "%";
@@ -397,7 +397,7 @@ const session = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Terdapat kesalahan: ${err}`);
+                alert(`Có lỗi sảy ra: ${err}`);
                 window.location.reload();
                 return;
             });
@@ -431,7 +431,7 @@ const like = (() => {
         let id = button.getAttribute('data-uuid');
 
         if (!token) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi sảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -456,7 +456,7 @@ const like = (() => {
                     }
                 })
                 .catch((err) => {
-                    alert(`Terdapat kesalahan: ${err}`);
+                    alert(`Có lỗi sảy ra: ${err}`);
                 });
 
         } else {
@@ -473,11 +473,11 @@ const like = (() => {
                     }
                 })
                 .catch((err) => {
-                    alert(`Terdapat kesalahan: ${err}`);
+                    alert(`Có lỗi sảy ra: ${err}`);
                 });
         }
 
-        info.innerText = info.getAttribute('data-suka') + ' suka';
+        info.innerText = info.getAttribute('data-suka') + ' lượt thích';
         button.disabled = false;
     };
 
@@ -521,7 +521,7 @@ const comment = (() => {
         formKehadiran.style.display = 'block';
 
         formNama.value = null;
-        formKehadiran.value = 0;
+        formKehadiran.value = 1;
         formPesan.value = null;
 
         formNama.disabled = false;
@@ -536,28 +536,28 @@ const comment = (() => {
         let token = localStorage.getItem('token') ?? '';
 
         if (token.length == 0) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi xảy ra, xin thử lại!');
             window.location.reload();
             return;
         }
 
         if (nama.length == 0) {
-            alert('nama tidak boleh kosong');
+            alert('Hãy nhập tên');
             return;
         }
 
         if (nama.length >= 35) {
-            alert('panjangan nama maksimal 35');
+            alert('Tên quá dài');
             return;
         }
 
         if (hadir == 0) {
-            alert('silahkan pilih kehadiran');
+            alert('Hãy chọn sự hiện diện');
             return;
         }
 
         if (komentar.length == 0) {
-            alert('pesan tidak boleh kosong');
+            alert('Hãy nhập lời chúc');
             return;
         }
 
@@ -568,7 +568,7 @@ const comment = (() => {
 
         let tmp = buttonKirim.innerHTML;
         buttonKirim.innerHTML = loader;
-
+        
         let isSuccess = false;
         await request('POST', '/api/comment')
             .token(token)
@@ -584,7 +584,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Terdapat kesalahan: ${err}`);
+                alert(`Có lỗi sảy ra: ${err}`);
             });
 
         if (isSuccess) {
@@ -611,7 +611,7 @@ const comment = (() => {
         let token = localStorage.getItem('token') ?? '';
 
         if (token.length == 0) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi sảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -632,7 +632,7 @@ const comment = (() => {
 
                     document.getElementById('balasan').innerHTML = `
                     <div class="my-3">
-                        <h6>Balasan</h6>
+                        <h6>Phản hồi</h6>
                         <div id="id-balasan" data-uuid="${id}" class="card-body bg-light shadow p-3 rounded-4">
                             <div class="d-flex flex-wrap justify-content-between align-items-center">
                                 <p class="text-dark text-truncate m-0 p-0" style="font-size: 0.95rem;">
@@ -648,7 +648,7 @@ const comment = (() => {
             })
             .catch((err) => {
                 resetForm();
-                alert(`Terdapat kesalahan: ${err}`);
+                alert(`Có lỗi sảy ra: ${err}`);
             });
 
         document.getElementById('ucapan').scrollIntoView({ behavior: 'smooth' });
@@ -660,16 +660,16 @@ const comment = (() => {
         return `
         <div class="d-flex flex-wrap justify-content-between align-items-center">
             <div class="d-flex flex-wrap justify-content-start align-items-center">
-                <button style="font-size: 0.8rem;" onclick="comment.balasan(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-3 py-0">Balas</button>
+                <button style="font-size: 0.8rem;" onclick="comment.balasan(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-3 py-0">Phản hồi</button>
                 ${owns.has(data.uuid)
                 ? `
-                <button style="font-size: 0.8rem;" onclick="comment.edit(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-3 py-0 ms-1">Ubah</button>
-                <button style="font-size: 0.8rem;" onclick="comment.hapus(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-3 py-0 ms-1">Hapus</button>`
+                <button style="font-size: 0.8rem;" onclick="comment.edit(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-3 py-0 ms-1">Chỉnh sửa</button>
+                <button style="font-size: 0.8rem;" onclick="comment.hapus(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-3 py-0 ms-1">Xóa</button>`
                 : ''}
             </div>
             <button style="font-size: 0.8rem;" onclick="like.like(this)" data-uuid="${data.uuid}" class="btn btn-sm btn-outline-dark rounded-2 py-0 px-0">
                 <div class="d-flex justify-content-start align-items-center">
-                    <p class="my-0 mx-1" data-suka="${data.like.love}">${data.like.love} suka</p>
+                    <p class="my-0 mx-1" data-suka="${data.like.love}">${data.like.love} lượt thích</p>
                     <i class="py-1 me-1 p-0 ${likes.has(data.uuid) ? 'fa-solid fa-heart text-danger' : 'fa-regular fa-heart'}"></i>
                 </div>
             </button>
@@ -722,7 +722,7 @@ const comment = (() => {
 
         let token = localStorage.getItem('token') ?? '';
         if (token.length == 0) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi sảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -740,7 +740,7 @@ const comment = (() => {
                     }
                 }
             })
-            .catch((err) => alert(`Terdapat kesalahan: ${err}`));
+            .catch((err) => alert(`Có lỗi sảy ra: ${err}`));
     };
 
     const renderLoading = (num) => {
@@ -774,23 +774,23 @@ const comment = (() => {
         let id = document.getElementById('id-balasan').getAttribute('data-uuid');
 
         if (token.length == 0) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi sảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
 
         if (nama.length == 0) {
-            alert('nama tidak boleh kosong');
+            alert('Vui lòng nhập tên');
             return;
         }
 
         if (nama.length >= 35) {
-            alert('panjangan nama maksimal 35');
+            alert('Tên dài quá 35 ký tự');
             return;
         }
 
         if (komentar.length == 0) {
-            alert('pesan tidak boleh kosong');
+            alert('Vui lòng nhập lời chúc');
             return;
         }
 
@@ -817,7 +817,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Terdapat kesalahan: ${err}`);
+                alert(`Có lỗi sảy ra: ${err}`);
             });
 
         if (isSuccess) {
@@ -840,18 +840,18 @@ const comment = (() => {
         let komentar = formPesan.value;
 
         if (token.length == 0) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi xảy ra, xin thử lại!');
             window.location.reload();
             return;
         }
 
         if (document.getElementById(id).getAttribute('data-parent') === 'true' && hadir == 0) {
-            alert('silahkan pilih kehadiran');
+            alert('Xin hãy chọn sự hiện diện');
             return;
         }
 
         if (komentar.length == 0) {
-            alert('pesan tidak boleh kosong');
+            alert('Xin hãy nhập lời nhắn');
             return;
         }
 
@@ -876,7 +876,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Terdapat kesalahan: ${err}`);
+                alert(`Có lỗi sảy ra: ${err}`);
             });
 
         if (isSuccess) {
@@ -893,7 +893,7 @@ const comment = (() => {
     };
 
     const hapus = async (button) => {
-        if (!confirm('Kamu yakin ingin menghapus?')) {
+        if (!confirm('Bạn chắc chắn muốn xóa chứ?')) {
             return;
         }
 
@@ -901,7 +901,7 @@ const comment = (() => {
         let id = button.getAttribute('data-uuid');
 
         if (token.length == 0) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi sảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -921,7 +921,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Terdapat kesalahan: ${err}`);
+                alert(`Có lỗi sảy ra: ${err}`);
             });
 
         button.innerText = tmp;
@@ -939,7 +939,7 @@ const comment = (() => {
         let token = localStorage.getItem('token') ?? '';
 
         if (token.length == 0) {
-            alert('Terdapat kesalahan, token kosong !');
+            alert('Có lỗi sảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -972,7 +972,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Terdapat kesalahan: ${err}`);
+                alert(`Có lỗi sảy ra: ${err}`);
             });
 
         button.disabled = false;

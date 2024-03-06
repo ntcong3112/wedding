@@ -194,6 +194,10 @@ footer {
     display: block !important; 
 } 
 @media only screen and (min-width: 730px) {
+    #map-embeded{
+        width: 65%;
+        height: 400px;
+    }
     .box-main {
         padding: 20px 0px !important
     }
