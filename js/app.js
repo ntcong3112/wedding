@@ -1,3 +1,15 @@
+let prevScrollPos = window.scrollY;
+const navbar = document.getElementById("navbar-menus");
+
+window.onscroll = function() {
+  let currentScrollPos = window.scrollY;
+  if (prevScrollPos > currentScrollPos) {
+    navbar.classList.remove("hidden");
+  } else {
+    navbar.classList.add("hidden");
+  }
+  prevScrollPos = currentScrollPos;
+}
 const storage = (table) => {
 
     if (!localStorage.getItem(table)) {

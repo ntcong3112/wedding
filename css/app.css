@@ -74,7 +74,7 @@ body::-webkit-scrollbar {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('./../assets/images/bg1.JPG');
+    background-image: url('https://res.cloudinary.com/dg9phfy3a/image/upload/v1710082977/bg1_ut5we9.jpg');
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
     opacity : 0.9;
@@ -90,7 +90,7 @@ body::-webkit-scrollbar {
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('./../assets/images/bg2.JPG');
+    background-image: url('https://res.cloudinary.com/dg9phfy3a/image/upload/v1710083391/bg2_n6aycn.jpg');
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover;
     opacity : 0.85;
@@ -193,7 +193,30 @@ footer {
 #kinhmoi{
     display: block !important; 
 } 
+.navbar {
+    transition: bottom 0.3s ease-in-out;
+  }
+  .navbar.hidden {
+    bottom: -50px; /* Adjust according to your navbar height */
+  }
+#show-modal-image {
+    max-height: 1000px;
+    width: auto;
+    object-fit: cover;
+}
+.image-galary{
+    height: 250px !important;
+}
+.image-galary2{
+    height: 500px !important;
+}
 @media only screen and (min-width: 730px) {
+    .image-galary{
+        height: 800px !important;
+    }
+    .image-galary2{
+        height: 1000px !important;
+    }
     #map-embeded{
         width: 65%;
         height: 400px;
