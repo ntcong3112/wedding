@@ -1,6 +1,8 @@
 let prevScrollPos = window.scrollY;
 const navbar = document.getElementById("navbar-menus");
-
+const sleep = (milliseconds) => {
+    return new Promise(resolve => setTimeout(resolve, milliseconds));
+};
 window.onscroll = function() {
   let currentScrollPos = window.scrollY;
   if (prevScrollPos > currentScrollPos) {
@@ -391,28 +393,44 @@ const pagination = (() => {
     };
 })();
 
+
+
 const session = (() => {
 
     let body = document.querySelector('body');
 
     const login = async () => {
-        await request('POST', '/api/session')
-            .body({
-                email: body.getAttribute('data-email'),
-                password: body.getAttribute('data-password')
-            })
-            .then((res) => {
+        let retryCount = 0;
+    
+        const tryLogin = async () => {
+            try {
+                const res = await request('POST', '/api/session')
+                    .body({
+                        email: body.getAttribute('data-email'),
+                        password: body.getAttribute('data-password')
+                    });
+    
                 if (res.code == 200) {
                     localStorage.removeItem('token');
                     localStorage.setItem('token', res.data.token);
                     comment.ucapan();
                 }
-            })
-            .catch((err) => {
-                alert(`Có lỗi sảy ra: ${err}`);
-                window.location.reload();
-                return;
-            });
+            } catch (err) {
+                if (retryCount < 3) {
+                    retryCount++;
+                    console.error(`Error occurred: ${err}. Retrying...`);
+                    await sleep(2000); // Sleep for 2 seconds
+                    await tryLogin(); // Retry login
+                } else {
+                    alert(`Có lỗi sảy ra xin vui lòng thử lại`);
+                    console.log(err);
+                    window.location.reload();
+                    return;
+                }
+            }
+        };
+    
+        await tryLogin();
     };
 
     const check = async () => {
@@ -729,30 +747,43 @@ const comment = (() => {
     };
 
     const ucapan = async () => {
-        const UCAPAN = document.getElementById('daftar-ucapan');
-        UCAPAN.innerHTML = renderLoading(pagination.getPer());
-
-        let token = localStorage.getItem('token') ?? '';
-        if (token.length == 0) {
-            alert('Có lỗi sảy ra xin thử lại sau! !');
-            window.location.reload();
-            return;
-        }
-
-        await request('GET', `/api/comment?per=${pagination.getPer()}&next=${pagination.getNext()}`)
-            .token(token)
-            .then((res) => {
+        let retryCount = 0;
+    
+        const tryUcapan = async () => {
+            try {
+                const UCAPAN = document.getElementById('daftar-ucapan');
+                UCAPAN.innerHTML = renderLoading(pagination.getPer());
+    
+                let token = localStorage.getItem('token') ?? '';
+                if (token.length == 0) {
+                    alert('Có lỗi sảy ra xin thử lại sau! !');
+                    window.location.reload();
+                    return;
+                }
+    
+                const res = await request('GET', `/api/comment?per=${pagination.getPer()}&next=${pagination.getNext()}`)
+                    .token(token);
+    
                 if (res.code == 200) {
                     UCAPAN.innerHTML = null;
                     res.data.forEach((data) => UCAPAN.appendChild(renderCard(data)));
                     pagination.setResultData(res.data.length);
-
-                    if (res.data.length == 0) {
-                        UCAPAN.innerHTML = `<div class="h6 text-center">Tidak ada data</div>`;
-                    }
                 }
-            })
-            .catch((err) => alert(`Có lỗi sảy ra: ${err}`));
+            } catch (err) {
+                if (retryCount < 3) {
+                    retryCount++;
+                    console.error(`Error occurred: ${err}. Retrying...`);
+                    await sleep(2000); // Sleep for 2 seconds
+                    await tryUcapan(); // Retry ucapan
+                } else {
+                    alert(`Có lỗi sảy ra xin vui lòng thử lại: ${err}`);
+                    window.location.reload();
+                    return;
+                }
+            }
+        };
+    
+        await tryUcapan();
     };
 
     const renderLoading = (num) => {
