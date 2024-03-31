@@ -422,7 +422,7 @@ const session = (() => {
                     await sleep(2000); // Sleep for 2 seconds
                     await tryLogin(); // Retry login
                 } else {
-                    alert(`Có lỗi sảy ra xin vui lòng thử lại`);
+                    alert(`Có lỗi xảy ra xin vui lòng thử lại`);
                     console.log(err);
                     window.location.reload();
                     return;
@@ -461,7 +461,7 @@ const like = (() => {
         let id = button.getAttribute('data-uuid');
 
         if (!token) {
-            alert('Có lỗi sảy ra xin thử lại sau! !');
+            alert('Có lỗi xảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -486,7 +486,7 @@ const like = (() => {
                     }
                 })
                 .catch((err) => {
-                    alert(`Có lỗi sảy ra: ${err}`);
+                    alert(`Có lỗi xảy ra: ${err}`);
                 });
 
         } else {
@@ -503,7 +503,7 @@ const like = (() => {
                     }
                 })
                 .catch((err) => {
-                    alert(`Có lỗi sảy ra: ${err}`);
+                    alert(`Có lỗi xảy ra: ${err}`);
                 });
         }
 
@@ -614,7 +614,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Có lỗi sảy ra: ${err}`);
+                alert(`Có lỗi xảy ra: ${err}`);
             });
 
         if (isSuccess) {
@@ -641,7 +641,7 @@ const comment = (() => {
         let token = localStorage.getItem('token') ?? '';
 
         if (token.length == 0) {
-            alert('Có lỗi sảy ra xin thử lại sau! !');
+            alert('Có lỗi xảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -678,7 +678,7 @@ const comment = (() => {
             })
             .catch((err) => {
                 resetForm();
-                alert(`Có lỗi sảy ra: ${err}`);
+                alert(`Có lỗi xảy ra: ${err}`);
             });
 
         document.getElementById('ucapan').scrollIntoView({ behavior: 'smooth' });
@@ -756,7 +756,7 @@ const comment = (() => {
     
                 let token = localStorage.getItem('token') ?? '';
                 if (token.length == 0) {
-                    alert('Có lỗi sảy ra xin thử lại sau! !');
+                    alert('Có lỗi xảy ra xin thử lại sau! !');
                     window.location.reload();
                     return;
                 }
@@ -776,7 +776,7 @@ const comment = (() => {
                     await sleep(2000); // Sleep for 2 seconds
                     await tryUcapan(); // Retry ucapan
                 } else {
-                    alert(`Có lỗi sảy ra xin vui lòng thử lại: ${err}`);
+                    alert(`Có lỗi xảy ra xin vui lòng thử lại: ${err}`);
                     window.location.reload();
                     return;
                 }
@@ -817,7 +817,7 @@ const comment = (() => {
         let id = document.getElementById('id-balasan').getAttribute('data-uuid');
 
         if (token.length == 0) {
-            alert('Có lỗi sảy ra xin thử lại sau! !');
+            alert('Có lỗi xảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -860,7 +860,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Có lỗi sảy ra: ${err}`);
+                alert(`Có lỗi xảy ra: ${err}`);
             });
 
         if (isSuccess) {
@@ -919,7 +919,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Có lỗi sảy ra: ${err}`);
+                alert(`Có lỗi xảy ra: ${err}`);
             });
 
         if (isSuccess) {
@@ -944,7 +944,7 @@ const comment = (() => {
         let id = button.getAttribute('data-uuid');
 
         if (token.length == 0) {
-            alert('Có lỗi sảy ra xin thử lại sau! !');
+            alert('Có lỗi xảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -964,7 +964,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Có lỗi sảy ra: ${err}`);
+                alert(`Có lỗi xảy ra: ${err}`);
             });
 
         button.innerText = tmp;
@@ -982,7 +982,7 @@ const comment = (() => {
         let token = localStorage.getItem('token') ?? '';
 
         if (token.length == 0) {
-            alert('Có lỗi sảy ra xin thử lại sau! !');
+            alert('Có lỗi xảy ra xin thử lại sau! !');
             window.location.reload();
             return;
         }
@@ -1015,7 +1015,7 @@ const comment = (() => {
                 }
             })
             .catch((err) => {
-                alert(`Có lỗi sảy ra: ${err}`);
+                alert(`Có lỗi xảy ra: ${err}`);
             });
 
         button.disabled = false;
